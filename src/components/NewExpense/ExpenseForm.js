@@ -31,10 +31,31 @@ const ExpenseForm = (props) => {
     setEnteredTitle('');
     setEnteredAmount('');
     setEnteredDate('');
+    setAddingNewState(false);
+  };
+
+  const [addingNewState, setAddingNewState] = useState(false);
+
+  const addingNewStateHandler = (event) => {
+    event.preventDefault();
+    setAddingNewState(true);
+  }
+
+  const resetHandler = (event) => {
+    event.preventDefault();
+    setAddingNewState(false);
+  }
+
+  if(addingNewState === false){
+    return(
+      <form onSubmit={addingNewStateHandler}>
+        <button type="submit">Add New Expense</button>
+      </form>
+    );
   };
 
   return (
-    <form onSubmit={submitHandler}>
+    <form onSubmit={submitHandler} onReset={resetHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
@@ -66,6 +87,7 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="reset">Cancel</button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
